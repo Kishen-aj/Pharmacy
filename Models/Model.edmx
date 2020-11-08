@@ -1,0 +1,598 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PharmacyDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblChronicMedication">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="20" />
+          <Property Name="Dosage" Type="varchar" MaxLength="25" />
+          <Property Name="Price" Type="float" />
+          <Property Name="ExpiryDate" Type="date" />
+          <Property Name="StockQuantity" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCustomers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="15" />
+          <Property Name="LastName" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="25" />
+          <Property Name="CellNumber" Type="char" MaxLength="10" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="Allergies" Type="varchar" MaxLength="100" />
+          <Property Name="Conditions" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblMedication">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="20" />
+          <Property Name="Dosage" Type="varchar" MaxLength="25" />
+          <Property Name="Price" Type="float" />
+          <Property Name="ExpiryDate" Type="date" />
+          <Property Name="PrescriptionRequired" Type="varchar" MaxLength="3" />
+          <Property Name="StockQuantity" Type="int" />
+        </EntityType>
+        <EntityType Name="tblOrders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemRequired" Type="varchar" MaxLength="50" />
+          <Property Name="StockAmount" Type="int" />
+          <Property Name="Dosage" Type="varchar" MaxLength="25" />
+          <Property Name="OrderedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tblPatients">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="15" />
+          <Property Name="LastName" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="25" />
+          <Property Name="CellNumber" Type="char" MaxLength="10" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="ChronicMedication" Type="int" />
+          <Property Name="RepeatScript" Type="varchar" MaxLength="20" />
+          <Property Name="DeliveryRequired" Type="varchar" MaxLength="10" />
+          <Property Name="Hospital" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblPaymentTypes">
+          <Key>
+            <PropertyRef Name="PaymentTypeID" />
+          </Key>
+          <Property Name="PaymentTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblSales">
+          <Key>
+            <PropertyRef Name="SalesID" />
+          </Key>
+          <Property Name="SalesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="SalesNumber" Type="varchar" MaxLength="250" />
+          <Property Name="SalesDate" Type="datetime" />
+          <Property Name="FinalTotal" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblSalesDetails">
+          <Key>
+            <PropertyRef Name="SalesDetailID" />
+          </Key>
+          <Property Name="SalesDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesID" Type="int" />
+          <Property Name="ItemID" Type="int" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Discount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" />
+          <Property Name="LastName" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Username" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="12" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__tblOrders__Order__300424B4">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+          <End Role="tblOrders" Type="Self.tblOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblOrders">
+              <PropertyRef Name="OrderedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblOrders__Order__31EC6D26">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
+          <End Role="tblOrders" Type="Self.tblOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblOrders">
+              <PropertyRef Name="OrderedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPatien__Chron__36B12243">
+          <End Role="tblChronicMedication" Type="Self.tblChronicMedication" Multiplicity="0..1" />
+          <End Role="tblPatients" Type="Self.tblPatients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChronicMedication">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="tblPatients">
+              <PropertyRef Name="ChronicMedication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSales_tblCustomers">
+          <End Role="tblCustomers" Type="Self.tblCustomers" Multiplicity="0..1" />
+          <End Role="tblSales" Type="Self.tblSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tblSales">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSalesDetails_tblMedication">
+          <End Role="tblMedication" Type="Self.tblMedication" Multiplicity="0..1" />
+          <End Role="tblSalesDetails" Type="Self.tblSalesDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMedication">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="tblSalesDetails">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSalesDetails_tblSales">
+          <End Role="tblSales" Type="Self.tblSales" Multiplicity="0..1" />
+          <End Role="tblSalesDetails" Type="Self.tblSalesDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSales">
+              <PropertyRef Name="SalesID" />
+            </Principal>
+            <Dependent Role="tblSalesDetails">
+              <PropertyRef Name="SalesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PharmacyDatabaseModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblChronicMedication" EntityType="Self.tblChronicMedication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomers" EntityType="Self.tblCustomers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMedication" EntityType="Self.tblMedication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrders" EntityType="Self.tblOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPatients" EntityType="Self.tblPatients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPaymentTypes" EntityType="Self.tblPaymentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSales" EntityType="Self.tblSales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSalesDetails" EntityType="Self.tblSalesDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblOrders__Order__300424B4" Association="Self.FK__tblOrders__Order__300424B4">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblOrders" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOrders__Order__31EC6D26" Association="Self.FK__tblOrders__Order__31EC6D26">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblOrders" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPatien__Chron__36B12243" Association="Self.FK__tblPatien__Chron__36B12243">
+            <End Role="tblChronicMedication" EntitySet="tblChronicMedication" />
+            <End Role="tblPatients" EntitySet="tblPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSales_tblCustomers" Association="Self.FK_tblSales_tblCustomers">
+            <End Role="tblCustomers" EntitySet="tblCustomers" />
+            <End Role="tblSales" EntitySet="tblSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSalesDetails_tblMedication" Association="Self.FK_tblSalesDetails_tblMedication">
+            <End Role="tblMedication" EntitySet="tblMedication" />
+            <End Role="tblSalesDetails" EntitySet="tblSalesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSalesDetails_tblSales" Association="Self.FK_tblSalesDetails_tblSales">
+            <End Role="tblSales" EntitySet="tblSales" />
+            <End Role="tblSalesDetails" EntitySet="tblSalesDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PharmacyDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblChronicMedication">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Dosage" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="StockQuantity" Type="Int32" />
+          <NavigationProperty Name="tblPatients" Relationship="Self.FK__tblPatien__Chron__36B12243" FromRole="tblChronicMedication" ToRole="tblPatients" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="CellNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Allergies" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Conditions" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblSales" Relationship="Self.FK_tblSales_tblCustomers" FromRole="tblCustomers" ToRole="tblSales" />
+        </EntityType>
+        <EntityType Name="tblMedication">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Dosage" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="PrescriptionRequired" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="StockQuantity" Type="Int32" />
+          <NavigationProperty Name="tblSalesDetails" Relationship="Self.FK_tblSalesDetails_tblMedication" FromRole="tblMedication" ToRole="tblSalesDetails" />
+        </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemRequired" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StockAmount" Type="Int32" />
+          <Property Name="Dosage" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="OrderedBy" Type="Int32" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblOrders__Order__300424B4" FromRole="tblOrders" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblPatient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="CellNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ChronicMedication" Type="Int32" />
+          <Property Name="RepeatScript" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryRequired" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Hospital" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblChronicMedication" Relationship="Self.FK__tblPatien__Chron__36B12243" FromRole="tblPatients" ToRole="tblChronicMedication" />
+        </EntityType>
+        <EntityType Name="tblPaymentType">
+          <Key>
+            <PropertyRef Name="PaymentTypeID" />
+          </Key>
+          <Property Name="PaymentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblSale">
+          <Key>
+            <PropertyRef Name="SalesID" />
+          </Key>
+          <Property Name="SalesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="SalesNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="SalesDate" Type="DateTime" Precision="3" />
+          <Property Name="FinalTotal" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="tblCustomer" Relationship="Self.FK_tblSales_tblCustomers" FromRole="tblSales" ToRole="tblCustomers" />
+          <NavigationProperty Name="tblSalesDetails" Relationship="Self.FK_tblSalesDetails_tblSales" FromRole="tblSales" ToRole="tblSalesDetails" />
+        </EntityType>
+        <EntityType Name="tblSalesDetail">
+          <Key>
+            <PropertyRef Name="SalesDetailID" />
+          </Key>
+          <Property Name="SalesDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesID" Type="Int32" />
+          <Property Name="ItemID" Type="Int32" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="tblMedication" Relationship="Self.FK_tblSalesDetails_tblMedication" FromRole="tblSalesDetails" ToRole="tblMedication" />
+          <NavigationProperty Name="tblSale" Relationship="Self.FK_tblSalesDetails_tblSales" FromRole="tblSalesDetails" ToRole="tblSales" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblOrders" Relationship="Self.FK__tblOrders__Order__300424B4" FromRole="tblUsers" ToRole="tblOrders" />
+        </EntityType>
+        <Association Name="FK__tblPatien__Chron__36B12243">
+          <End Role="tblChronicMedication" Type="Self.tblChronicMedication" Multiplicity="0..1" />
+          <End Role="tblPatients" Type="Self.tblPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChronicMedication">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="tblPatients">
+              <PropertyRef Name="ChronicMedication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSales_tblCustomers">
+          <End Role="tblCustomers" Type="Self.tblCustomer" Multiplicity="0..1" />
+          <End Role="tblSales" Type="Self.tblSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tblSales">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSalesDetails_tblMedication">
+          <End Role="tblMedication" Type="Self.tblMedication" Multiplicity="0..1" />
+          <End Role="tblSalesDetails" Type="Self.tblSalesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMedication">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="tblSalesDetails">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblOrders__Order__300424B4">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblOrders" Type="Self.tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblOrders">
+              <PropertyRef Name="OrderedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSalesDetails_tblSales">
+          <End Role="tblSales" Type="Self.tblSale" Multiplicity="0..1" />
+          <End Role="tblSalesDetails" Type="Self.tblSalesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSales">
+              <PropertyRef Name="SalesID" />
+            </Principal>
+            <Dependent Role="tblSalesDetails">
+              <PropertyRef Name="SalesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PharmacyDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tblChronicMedications" EntityType="Self.tblChronicMedication" />
+          <EntitySet Name="tblCustomers" EntityType="Self.tblCustomer" />
+          <EntitySet Name="tblMedications" EntityType="Self.tblMedication" />
+          <EntitySet Name="tblOrders" EntityType="Self.tblOrder" />
+          <EntitySet Name="tblPatients" EntityType="Self.tblPatient" />
+          <EntitySet Name="tblPaymentTypes" EntityType="Self.tblPaymentType" />
+          <EntitySet Name="tblSales" EntityType="Self.tblSale" />
+          <EntitySet Name="tblSalesDetails" EntityType="Self.tblSalesDetail" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK__tblPatien__Chron__36B12243" Association="Self.FK__tblPatien__Chron__36B12243">
+            <End Role="tblChronicMedication" EntitySet="tblChronicMedications" />
+            <End Role="tblPatients" EntitySet="tblPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSales_tblCustomers" Association="Self.FK_tblSales_tblCustomers">
+            <End Role="tblCustomers" EntitySet="tblCustomers" />
+            <End Role="tblSales" EntitySet="tblSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSalesDetails_tblMedication" Association="Self.FK_tblSalesDetails_tblMedication">
+            <End Role="tblMedication" EntitySet="tblMedications" />
+            <End Role="tblSalesDetails" EntitySet="tblSalesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOrders__Order__300424B4" Association="Self.FK__tblOrders__Order__300424B4">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblOrders" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSalesDetails_tblSales" Association="Self.FK_tblSalesDetails_tblSales">
+            <End Role="tblSales" EntitySet="tblSales" />
+            <End Role="tblSalesDetails" EntitySet="tblSalesDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PharmacyDatabaseModelStoreContainer" CdmEntityContainer="PharmacyDatabaseEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblChronicMedications">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblChronicMedication">
+              <MappingFragment StoreEntitySet="tblChronicMedication">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomers">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomers">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Allergies" ColumnName="Allergies" />
+                <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMedications">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblMedication">
+              <MappingFragment StoreEntitySet="tblMedication">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="PrescriptionRequired" ColumnName="PrescriptionRequired" />
+                <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrders">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblOrder">
+              <MappingFragment StoreEntitySet="tblOrders">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ItemRequired" ColumnName="ItemRequired" />
+                <ScalarProperty Name="StockAmount" ColumnName="StockAmount" />
+                <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+                <ScalarProperty Name="OrderedBy" ColumnName="OrderedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPatients">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblPatient">
+              <MappingFragment StoreEntitySet="tblPatients">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CellNumber" ColumnName="CellNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ChronicMedication" ColumnName="ChronicMedication" />
+                <ScalarProperty Name="RepeatScript" ColumnName="RepeatScript" />
+                <ScalarProperty Name="DeliveryRequired" ColumnName="DeliveryRequired" />
+                <ScalarProperty Name="Hospital" ColumnName="Hospital" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPaymentTypes">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblPaymentType">
+              <MappingFragment StoreEntitySet="tblPaymentTypes">
+                <ScalarProperty Name="PaymentTypeID" ColumnName="PaymentTypeID" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSales">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblSale">
+              <MappingFragment StoreEntitySet="tblSales">
+                <ScalarProperty Name="SalesID" ColumnName="SalesID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="SalesNumber" ColumnName="SalesNumber" />
+                <ScalarProperty Name="SalesDate" ColumnName="SalesDate" />
+                <ScalarProperty Name="FinalTotal" ColumnName="FinalTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSalesDetails">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblSalesDetail">
+              <MappingFragment StoreEntitySet="tblSalesDetails">
+                <ScalarProperty Name="SalesDetailID" ColumnName="SalesDetailID" />
+                <ScalarProperty Name="SalesID" ColumnName="SalesID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="PharmacyDatabaseModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

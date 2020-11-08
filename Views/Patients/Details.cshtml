@@ -1,0 +1,88 @@
+﻿@model Pharmacy.Models.tblPatient
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CellNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CellNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RepeatScript)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepeatScript)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryRequired)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryRequired)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hospital)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hospital)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblChronicMedication.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblChronicMedication.ItemName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

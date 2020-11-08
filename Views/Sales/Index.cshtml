@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Pharmacy.Models.tblSale>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Sales Receipts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinalTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblCustomer.FirstName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblCustomer.FirstName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SalesID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SalesID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SalesID })
+        </td>
+    </tr>
+}
+
+</table>

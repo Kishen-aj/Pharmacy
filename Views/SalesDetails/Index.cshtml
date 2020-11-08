@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Pharmacy.Models.tblSalesDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Sales History</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblMedication.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblSale.SalesNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblMedication.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblSale.SalesNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SalesDetailID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SalesDetailID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SalesDetailID })
+        </td>
+    </tr>
+}
+
+</table>

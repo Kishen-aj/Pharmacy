@@ -1,0 +1,48 @@
+﻿@model Pharmacy.Models.tblSale
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SalesDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SalesDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinalTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblCustomer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblCustomer.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

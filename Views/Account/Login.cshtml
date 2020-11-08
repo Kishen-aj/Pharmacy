@@ -1,0 +1,106 @@
+﻿@model Pharmacy.Models.tblUser
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <style>
+        .body {
+            background: url(https://breakingitdown.co.uk/wp-content/uploads/2016/08/heartbeat-wallpaper-6-1038x576.jpeg);
+            background-size: cover;
+        }
+        .form-horizontal {
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            padding: 60px 40px;
+            box-shadow: 0 12px 15px black;
+        }
+
+        .form-group {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .col-md-offset-2 {
+            position: absolute;
+            left: 165px;
+        }
+
+            .col-md-offset-2.btn.btn-default {
+                color: red;
+            }
+
+            .col-md-offset-2 input[type="submit"] {
+                background: cadetblue;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
+    </style>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <h3>Welcome to</h3>
+        <h2>Ballantines Pharmacy Management System!</h2>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="Role" id="Role">
+                <option>Select Role</option>
+                <option>Pharmacist</option>
+                <option>Assistant</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="field-validation-error" style=" color:red; font-size: 16px;">@Html.DisplayFor(model => model.LoginError)</label>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Login" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>
